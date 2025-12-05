@@ -5,4 +5,4 @@ A website to generate possible timetables for tuks students to help simplify the
 NodeJS
 Express
 React
-Postgres
+MongoDB
