@@ -43,4 +43,4 @@ const ModuleSchema = new Schema({
   activityGroups: [ActivityGroupSchema] 
 });
 
-module.exports = mongoose.model('Module', ModuleSchema);
+export const Module = mongoose.model('Module', ModuleSchema);
