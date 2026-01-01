@@ -13,6 +13,14 @@ const addModule = async (req, res) => {
     }
 }
 
+const updateModule = async (req, res) => {
+    try {
+        
+    } catch (error) {
+
+    }
+}
+
 export { 
     addModule
 };
