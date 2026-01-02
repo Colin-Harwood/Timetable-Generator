@@ -61,7 +61,23 @@ const updateModule = async (req, res) => {
     }
 }
 
+const getModule = async (req, res) => {
+    try {
+        const { modules } = req.body;
+
+        // Find all modules where the name is "IN" the provided array
+        const modulesList = await Module.find({ 
+            code: { $in: modules } 
+        });
+
+        res.status(200).json({ modulesList });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 export { 
     addModule,
-    updateModule
+    updateModule,
+    getModule
 };
