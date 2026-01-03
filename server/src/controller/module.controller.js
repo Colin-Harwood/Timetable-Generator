@@ -70,6 +70,20 @@ const getModule = async (req, res) => {
             code: { $in: modules } 
         });
 
+        // check if all modules were found
+        if (modules.length !== modulesList.length) {
+
+            //see which modules are missing
+            const foundCodes = modulesList.map(m => m.code);
+            const missing = modules.filter(code => !foundCodes.includes(code));
+
+            return res.status(404).json({ 
+                message: "One or more modules were not found",
+                missingModules: missing 
+            });
+
+        }
+
         res.status(200).json({ modulesList });
     } catch (error) {
         res.status(500).json({ message: error.message });
