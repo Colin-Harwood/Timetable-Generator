@@ -76,6 +76,29 @@ const getModule = async (req, res) => {
     }
 }
 
+const deleteModule = async (req, res) => {
+    try {
+        const { code } = req.body
+
+        if (!code) {
+            return res.status(400).json({ message: "Module code is required for deletion." });
+        }
+
+        const deletedModule = await Module.findOneAndDelete({code: code});
+
+        if (!deletedModule) {
+            return res.status(404).json({ message: "Module not found. Nothing was deleted." });
+        }
+
+        res.status(200).json({ 
+            message: "Successfully deleted", 
+            data: deletedModule 
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message});
+    }
+}
+
 const fetchModuleList = async (req, res) => {
     try {
         const moduleList = await Module.distinct('code');
@@ -90,5 +113,6 @@ export {
     addModule,
     updateModule,
     getModule,
-    fetchModuleList
+    fetchModuleList,
+    deleteModule
 };
