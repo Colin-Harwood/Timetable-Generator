@@ -123,10 +123,19 @@ const fetchModuleList = async (req, res) => {
     }
 }
 
+const makeTimetable = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
 export { 
     addModule,
     updateModule,
     getModule,
     fetchModuleList,
-    deleteModule
+    deleteModule,
+    makeTimetable
 };
