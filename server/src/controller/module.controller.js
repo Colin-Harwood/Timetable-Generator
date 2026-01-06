@@ -116,7 +116,7 @@ const deleteModule = async (req, res) => {
 const fetchModuleList = async (req, res) => {
     try {
         const moduleList = await Module.distinct('code');
-
+        console.log("List: ", moduleList);
         res.status(200).json({moduleList});
     } catch (error) {
         res.status(500).json({message: error.message})
