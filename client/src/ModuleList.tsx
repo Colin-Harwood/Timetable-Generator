@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 
 const ModuleList = () => {
     const [codes, setCodes] = useState<string[]>([]);
+    const [selectedModules, setSelectedModules] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    //fetch the module names from the backend to display
     useEffect(() => {
 
         const fetchCodes = async () => {
@@ -28,16 +30,69 @@ const ModuleList = () => {
 
     }, [])
 
+    // when checkBoxes are updated add module to list or remove
+    const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const code = e.target.name;
+        const isChecked = e.target.checked;
+
+        if (isChecked) {
+            if (!selectedModules.includes(code)) {
+                setSelectedModules([...selectedModules, code]);
+            }
+        } else {
+            setSelectedModules(selectedModules.filter(item => item !== code));
+        }
+        
+    }
+
+    // submit the module codes to the timetable generator url and get the timetable
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            // send modules to backend
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/modules/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                
+                body: JSON.stringify({ modules: selectedModules }), 
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            console.log("Success:", result);
+            
+            // TODO: Redirect user or show the timetable
+
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            // TODO: Show error message to user?
+        }
+    };
+
     if (isLoading) return <p>Loading...</p>
 
     return (
-        <div className="p-4">
+        <div>
             <h2>Available Modules</h2>
-            <ul>
+            <form onSubmit={handleSubmit}>
                 {codes.map((code) => (
-                <li key={code}>{code}</li>
+                    <div key={code}>
+                    <input type="checkbox" id={code} name={code} onChange={handleToggle}
+                        checked={selectedModules.includes(code)}
+                    />
+                        <label htmlFor={code}>
+                            {code}
+                        </label>
+                    </div>
                 ))}
-            </ul>
+                <input type="submit" value="Create"/>
+            </form>
         </div>
     );
 
