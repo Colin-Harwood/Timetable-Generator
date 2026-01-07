@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 
-const ModuleList = () => {
+interface ModuleListProps {
+    onTimetableGenerated: (data: any) => void; // replace any with actual type later
+}
+
+const ModuleList = ({ onTimetableGenerated }: ModuleListProps) => {
     const [codes, setCodes] = useState<string[]>([]);
-    const [selectedModules, setSelectedModules] = useState<string[]>([])
+    const [selectedModules, setSelectedModules] = useState<string[]>([]) 
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     //fetch the module names from the backend to display
@@ -66,12 +70,11 @@ const ModuleList = () => {
 
             const result = await response.json();
             console.log("Success:", result);
-            
-            // TODO: Redirect user or show the timetable
+
+            onTimetableGenerated(result);
 
         } catch (error) {
             console.error("Error submitting form:", error);
-            // TODO: Show error message to user?
         }
     };
 
