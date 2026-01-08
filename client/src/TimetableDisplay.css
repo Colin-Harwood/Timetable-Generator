@@ -1,0 +1,12 @@
+.days-wrapper {
+    display: flex;       /* Put days side-by-side */
+    gap: 20px;           /* Space between columns */
+    overflow-x: auto;    /* Scroll if it gets too wide */
+}
+
+.day-column {
+    min-width: 200px;    /* Ensure columns don't get squashed */
+    background: #302c2c;
+    padding: 10px;
+    border-radius: 8px;
+}

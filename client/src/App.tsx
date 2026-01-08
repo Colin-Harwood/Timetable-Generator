@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
-import type { Module } from './types/module.types'
+// import type { Module } from './types/module.types'
 import './App.css'
 import ModuleList from './ModuleList.tsx'
 import TimetableDisplay from './TimetableDisplay.tsx'
  
 function App() {
     const [timetableData, setTimetableData] = useState<any | null>(null);
-
-
 
     return (
     <>
