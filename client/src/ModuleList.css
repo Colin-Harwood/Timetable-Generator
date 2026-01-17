@@ -1,0 +1,22 @@
+#formSubmit {
+    margin-top: 10px;;
+    width: 20%;
+    height: 40px;
+    border-radius: 8px;
+    border: 0px;
+}
+
+#formSubmit:hover {
+    background-color:rgb(131, 129, 129);
+}
+
+.checkBoxes {
+    font-size: 20px;
+}
+
+.checkBoxes input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin-right: 7px;
+    accent-color: gray;
+}

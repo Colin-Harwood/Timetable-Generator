@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './ModuleList.css'
 
 interface ModuleListProps {
     onTimetableGenerated: (data: any) => void; // replace any with actual type later
@@ -84,17 +85,19 @@ const ModuleList = ({ onTimetableGenerated }: ModuleListProps) => {
         <div>
             <h2>Available Modules</h2>
             <form onSubmit={handleSubmit}>
+                <div className="checkBoxes">
                 {codes.map((code) => (
                     <div key={code}>
                     <input type="checkbox" id={code} name={code} onChange={handleToggle}
-                        checked={selectedModules.includes(code)}
+                        checked={selectedModules.includes(code)} 
                     />
                         <label htmlFor={code}>
                             {code}
                         </label>
                     </div>
                 ))}
-                <input type="submit" value="Create"/>
+                </div>
+                <input type="submit" value="Create" id="formSubmit"/>
             </form>
         </div>
     );
